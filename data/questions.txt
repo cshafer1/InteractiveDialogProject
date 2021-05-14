@@ -1,0 +1,50 @@
+How many points did [player] get in the [year] season?
+What is [player]'s point total for the [year] season?
+In the [year] season, how many points did [player] score?
+During the [year] season, what is the total amount of points scored by [player]?
+[player]'s points in the [year] season?
+What team is [player] on?
+Who does [player] play for?
+Team of [player]?
+What team does [player] play for?
+[player] team?
+Who won the [award] in [year]?
+What player won the [award] in [year]?
+[award] in [year]?
+In [year], who won the [award]?
+In [year], what player won the [award]?
+What coach won the [award] in [year]?
+Who was the coach that won the [award] in [year]?
+In [year], what coach won the [award]?
+Coach who won [award] in [year]?
+Coach [award] [year]?
+Who was the champion in [year]?
+Who won the [year] championship?
+In [year], who won the championship?
+[year] champion?
+Who was the [year] champion?
+Who won the [game] in [year]?
+Which team won the [game] in [year]?
+Who was the winner of the [game] in [year]?
+Which team won [game] in [year]?
+Which team was the winner in the [game] in [year]?
+What year did [player] get into the hall of fame?
+When did [player] get into the hall of fame?
+Year that [player] got into the hall of fame?
+When was [player] inducted into the hall of fame?
+[player] hall of fame?
+When was [player] drafted?
+What was [player]'s draft position?
+[player] was drafted when?
+[player] was drafted at what position?
+[player] drafted?
+Where did [player] go to college?
+What college did [player] go to?
+What college did [player] play at?
+What school did [player] go to?
+School that [player] played at?
+What is the record of [team] during [time]?
+How many games did [team] win during [time]?
+What was the record of [team] in the [time] season?
+[team] record in [time]?
+[team] record in the [time] season?
