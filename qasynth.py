@@ -41,6 +41,7 @@ def parseString(input, to_replace, replacements):
     replacements = [str(x) for x in replacements]
     for i, value in enumerate(to_replace):
         input = input.replace("["+value+"]", replacements[i])
+    input = input.rstrip(".")
     return input.lower().rstrip("?")
 
 
@@ -66,7 +67,7 @@ def generateQCA():
             year = row.iloc[0]["Year"]
             points = row.iloc[0]["PTS"]
             tempQ = parseString(question_templates[i], question_replacements, [player, year])
-            tempA = parseString(answer_templates[0], answer_replacements, [player, year, points])
+            tempA = "<s> " + parseString(answer_templates[0], answer_replacements, [player, "<YEAR>", points]) + " </s>"
             tempC = row.to_string(header=False)
             questions_final.append(tempQ)
             answers_final.append(tempA)
@@ -86,7 +87,7 @@ def generateQCA():
             player = player.replace("*", "")
             team = row.iloc[0]["Tm"]
             tempQ = parseString(question_templates[i], question_replacements, [player])
-            tempA = parseString(answer_templates[1], answer_replacements, [player, team])
+            tempA = "<s> " + parseString(answer_templates[1], answer_replacements, [player, team]) + " </s>"
             tempC = row.to_string(header=False)
             questions_final.append(tempQ)
             answers_final.append(tempA)
@@ -106,7 +107,7 @@ def generateQCA():
             award = row.iloc[0]["award"]
             year = row.iloc[0]["year"]
             tempQ = parseString(question_templates[i], question_replacements, [award, year])
-            tempA = parseString(answer_templates[2], answer_replacements, [player, award, year])
+            tempA = "<s> " + parseString(answer_templates[2], answer_replacements, [player, award, "<YEAR>"]) + " </s>"
             tempC = row.to_string(header=False)
             questions_final.append(tempQ)
             answers_final.append(tempA)
@@ -126,7 +127,7 @@ def generateQCA():
             award = row.iloc[0]["award"]
             year = row.iloc[0]["year"]
             tempQ = parseString(question_templates[i], question_replacements, [award, year])
-            tempA = parseString(answer_templates[3], answer_replacements, [player, award, year])
+            tempA = " <s>" + parseString(answer_templates[3], answer_replacements, [player, award, "<YEAR>"]) + " </s>"
             tempC = row.to_string(header=False)
             questions_final.append(tempQ)
             answers_final.append(tempA)
@@ -145,7 +146,7 @@ def generateQCA():
             team = row.iloc[0]["tmIDWinner"]
             year = row.iloc[0]["year"]
             tempQ = parseString(question_templates[i], question_replacements, [year])
-            tempA = parseString(answer_templates[4], answer_replacements, [team, year])
+            tempA = "<s> " + parseString(answer_templates[4], answer_replacements, [team, "<YEAR>"]) + " </s>"
             tempC = row.to_string(header=False)
             questions_final.append(tempQ)
             answers_final.append(tempA)
@@ -166,7 +167,7 @@ def generateQCA():
             game = row.iloc[0]["round"]
             year = row.iloc[0]["year"]
             tempQ = parseString(question_templates[i], question_replacements, [game, year])
-            tempA = parseString(answer_templates[5], answer_replacements, [winteam, loseteam, game, year])
+            tempA = "<s> " + parseString(answer_templates[5], answer_replacements, [winteam, loseteam, game, "<YEAR>"]) + " </s>"
             tempC = row.to_string(header=False)
             questions_final.append(tempQ)
             answers_final.append(tempA)
@@ -185,7 +186,7 @@ def generateQCA():
             player = row.iloc[0]["name"]
             year = row.iloc[0]["year"]
             tempQ = parseString(question_templates[i], question_replacements, [player])
-            tempA = parseString(answer_templates[6], answer_replacements, [player, year])
+            tempA = "<s> " + parseString(answer_templates[6], answer_replacements, [player, "<YEAR>"]) + " </s>"
             tempC = row.to_string(header=False)
             questions_final.append(tempQ)
             answers_final.append(tempA)
@@ -205,7 +206,7 @@ def generateQCA():
             year = row.iloc[0]["draftYear"]
             draftNumber = row.iloc[0]["draftOverall"]
             tempQ = parseString(question_templates[i], question_replacements, [player])
-            tempA = parseString(answer_templates[7], answer_replacements, [player, draftNumber, year])
+            tempA = "<s> " + parseString(answer_templates[7], answer_replacements, [player, draftNumber, "<YEAR>"]) + " </s>"
             tempC = row.to_string(header=False)
             questions_final.append(tempQ)
             answers_final.append(tempA)
@@ -224,7 +225,7 @@ def generateQCA():
             player = row.iloc[0]["firstName"] + " " + row.iloc[0]["lastName"]
             school = row.iloc[0]["draftFrom"]
             tempQ = parseString(question_templates[i], question_replacements, [player])
-            tempA = parseString(answer_templates[8], answer_replacements, [player, school])
+            tempA = "<s> " + parseString(answer_templates[8], answer_replacements, [player, school]) + " </s>"
             tempC = row.to_string(header=False)
             questions_final.append(tempQ)
             answers_final.append(tempA)
@@ -245,7 +246,7 @@ def generateQCA():
             loses = row.iloc[0]["lost"]
             year = row.iloc[0]["year"]
             tempQ = parseString(question_templates[i], question_replacements, [team, year])
-            tempA = parseString(answer_templates[9], answer_replacements, [team, wins, loses, year])
+            tempA = "<s> " + parseString(answer_templates[9], answer_replacements, [team, wins, loses, "<YEAR>"]) + " </s>"
             tempC = row.to_string(header=False)
             questions_final.append(tempQ)
             answers_final.append(tempA)
