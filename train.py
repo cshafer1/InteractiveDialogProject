@@ -4,6 +4,7 @@ import io
 import os
 import re
 import random
+import time
 import numpy as np
 from collections import defaultdict
 from keras.preprocessing.text import Tokenizer
@@ -82,14 +83,20 @@ i = 0
 #quess = []
 #anss = []
 #wordss = []
-
-
-
+trainans = trainans[0:50]
+startTime = time.time()
+wordsDone = 0
+avgTime = time.time()
 for line in trainans:
+	wordsDone += 1
+	avgTime = (time.time() - startTime) / wordsDone
+	toCompletion = (len(trainans) - wordsDone) * avgTime
+	print("Estimated Time to Completion: " + str(toCompletion))
 	splitline = line.split(" ")
 	words = splitline[0]
 	for wordi in range(len(splitline)-1):
 		twords = anstok.texts_to_sequences([words])
+		print(twords)
 		twords = pad_sequences(twords, padding="post", truncating="post", maxlen=anslen)	
 
 		con = contok.texts_to_sequences([traincon[i]])
@@ -98,24 +105,18 @@ for line in trainans:
 		con = pad_sequences(con, padding="post", truncating="post", maxlen=conlen)
 		ques = pad_sequences(ques, padding="post", truncating="post", maxlen=queslen)
 
-		twordn = anstok.texts_to_sequences([splitline[wordi + 1]])
+		twordn = anstok.texts_to_sequences([splitline[wordi+1]])
 		ans = [0] * 1000
 		ans[twordn[0][0]] = 1
-		#print(len(twords), len(con), words)
-		#cons.append(con)
-		#quess.append(ques)
-		#anss.append(ans)
-		#wordss.append(twords)
-		model.fit([con, twords, ques], np.array([ans]), batch_size=config['batch_size'], epochs=5, verbose=1)
+		model.fit(x=[con, twords, ques], y=np.array([ans]), epochs=7, verbose=1, batch_size=config['batch_size'], workers=5, use_multiprocessing=True)
 		words += " " + splitline[wordi+1]
 	i += 1
 
 
-q = "how many points did andy duncan get in the 1951 season"
-c = "357  357  1951.0  Andy Duncan  F-C  28.0  BOS  14.0 NaN NaN NaN  0.292 NaN  0.55 NaN NaN NaN NaN NaN NaN NaN NaN NaN -0.4  0.1 -0.3 NaN NaN NaN NaN NaN NaN  7.0  40.0  0.175 NaN NaN NaN  7.0  40.0  0.175  0.175  15.0  22.0  0.682 NaN NaN  30.0  8.0 NaN NaN NaN  32.0  29.0"
-
+q = "how many points did scottie pippen get in the <year> season"
+c = "15872  15872  2002.0  Scottie Pippen*  SF  36.0  POR  62.0  60.0  1996.0  14.9  0.497  0.295  0.244  4.5  14.5  9.5  28.7  2.7  1.3  20.5  19.1 NaN  1.2  2.6  3.7  0.09 NaN  0.5  1.7  2.2  2.1  246.0  599.0  0.411  54.0  177.0  0.305  192.0  422.0  0.455  0.456  113.0  146.0  0.774  77.0  244.0  321.0  363.0  101.0  35.0  171.0  162.0  659.0"
 a = ""
-
+model.save("qamodel.h5")
 tq = questok.texts_to_sequences([q])
 tc = contok.texts_to_sequences([c])
 
@@ -128,8 +129,9 @@ ta = pad_sequences(ta, padding="post", truncating="post", maxlen=anslen)
 for i in range(anslen):
 	yhat = model.predict([tc, ta, tq])
 	ta[0][i] = np.argmax(yhat, axis = 1)[0]
-
+print(ta)
 text = anstok.sequences_to_texts(ta)
+print(text)
 text = re.findall('(<s>.*</s>)', text[0])[0]
 print("\n\n\n\n\n")
 print(text)
