@@ -70,7 +70,6 @@ wordss = []
 startTime = time.time()
 wordsDone = 0
 avgTime = time.time()
-trainans = trainans[0:50]
 for line in trainans:
     wordsDone += 1
     avgTime = (time.time() - startTime) / wordsDone
@@ -134,7 +133,7 @@ data = tf.data.Dataset.from_generator(generator, output_types=({"input_con": tf.
                                                                 "input_ans": tf.int32}, tf.int32),
                                      output_shapes=({"input_con":(1, conlen), "input_ques":(1, queslen),
 													 "input_ans":(1, anslen)}, (1,1000)))
-model.fit(data, epochs=10, batch_size=config['batch_size'], workers=2, use_multiprocessing=True)
+model.fit(data, epochs=5, batch_size=config['batch_size'], workers=2, use_multiprocessing=True)
 
 q = "how many points did scottie pippen get in the <year> season"
 c = "15872  15872  2002.0  Scottie Pippen*  SF  36.0  POR  62.0  60.0  1996.0  14.9  0.497  0.295  0.244  4.5  14.5  9.5  28.7  2.7  1.3  20.5  19.1 NaN  1.2  2.6  3.7  0.09 NaN  0.5  1.7  2.2  2.1  246.0  599.0  0.411  54.0  177.0  0.305  192.0  422.0  0.455  0.456  113.0  146.0  0.774  77.0  244.0  321.0  363.0  101.0  35.0  171.0  162.0  659.0"
