@@ -22,6 +22,9 @@ class AstAttentionGRUModel:
         self.conlen = config['conlen']
         self.anslen = config['anslen']
         self.queslen = config['queslen']
+        self.consamount = config['consamount']
+        self.ansamount = config['ansamount']
+        self.quesamount = config['quesamount']
         
         self.embdims = 100
         self.quesdims = 10
@@ -34,10 +37,10 @@ class AstAttentionGRUModel:
 
     def create_model(self):
         
-        con_input = Input(shape=(self.conlen,))
-        ans_input = Input(shape=(self.anslen,))
-        ques_input = Input(shape=(self.queslen,))
-        
+        con_input = Input(shape=self.conlen, name="input_con")
+        ans_input = Input(shape=self.anslen, name="input_ans")
+        ques_input = Input(shape=self.queslen, name="input_ques")
+
         ee = Embedding(output_dim=self.embdims, input_dim=self.convocabsize, mask_zero=False)(con_input)
         se = Embedding(output_dim=self.quesdims, input_dim=self.quesvocabsize, mask_zero=False)(ques_input)
 
