@@ -52,14 +52,14 @@ json_string = json.dumps(json.load(f))
 atokenizer = tf.keras.preprocessing.text.tokenizer_from_json(json_string)
 f.close()
 
-model = tf.keras.models.load_model("qamodel.h5")
+model = tf.keras.models.load_model("model.h5")
 
 f = open("contextFinal.txt")
 
 context = f.readlines()[lineNumber]
 
 f.close()
-print(context)
+print(lineNumber)
 tquestion = qtokenizer.texts_to_sequences([question])
 tcontext = ctokenizer.texts_to_sequences([context])
 
@@ -80,7 +80,7 @@ text = atokenizer.sequences_to_texts(tanswer)[0]
 #print(lineNumber, text)
 if lineNumber < 500:
 	text = re.sub("<year>", str(int(float(context.split("  ")[2]))), text)
-elif lineNumer < 1000:
+elif lineNumber < 1000:
 	text = re.sub("<year>", str(int(float(re.findall("[0-9]+", text)[0]))), text)
 else:
 	text = re.sub("<year>", str(int(float(context.split("  ")[1]))), text)
