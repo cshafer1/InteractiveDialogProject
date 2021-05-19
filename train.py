@@ -22,7 +22,7 @@ ansvocabsize = 1000
 quesvocabsize = 1000
 
 queslen = 100
-conlen = 50
+conlen = 400
 anslen = 100
 
 traincon = []
@@ -43,11 +43,26 @@ with open("answersFinal.txt") as f:
 contok = Tokenizer(filters='', lower=False, num_words=convocabsize, oov_token="UNK")
 contok.fit_on_texts(traincon)
 
+#con_tokenizer_json = contok.to_json()
+#with open('data/con_tok.json', 'w', encoding='utf-8') as f:
+#       f.write(con_tokenizer_json)
+
+
 questok = Tokenizer(filters='', lower=False, num_words=quesvocabsize, oov_token="UNK")
 questok.fit_on_texts(trainques)
 
+#ques_tokenizer_json = questok.to_json()
+#with open('data/ques_tok.json', 'w', encoding='utf-8') as f:
+#       f.write(ques_tokenizer_json)
+
+
 anstok = Tokenizer(filters='', lower=False, num_words=ansvocabsize, oov_token="UNK")
 anstok.fit_on_texts(trainans)
+
+#ans_tokenizer_json = anstok.to_json()
+#with open('data/ans_tok.json', 'w', encoding='utf-8') as f:
+#       f.write(ans_tokenizer_json)
+
 
 # tokenize sequences
 

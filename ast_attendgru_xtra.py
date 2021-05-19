@@ -13,7 +13,7 @@ import tensorflow as tf
 class AstAttentionGRUModel:
     def __init__(self, config):
         
-        config['conlen'] = 50
+        config['conlen'] = 400
         
         self.config = config
         self.convocabsize = config['convocabsize']
