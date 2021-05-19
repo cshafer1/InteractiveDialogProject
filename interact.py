@@ -16,7 +16,7 @@ from keras.layers import Activation, Dense, Dropout, LSTM, Embedding, Conv1D, Ma
 
 
 qlen = 100
-clen = 50
+clen = 400
 alen = 100
 
 
@@ -31,7 +31,6 @@ while len(args) and args[0].startswith('-') and len(args[0]) > 1:
 		lineNumber = int(args.pop(0))
 	elif arg == '-q':
 		question = args.pop(0)
-		single = True
 	else:
 		print("incorrect arguments")
 		sys.exit(0)
